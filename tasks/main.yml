@@ -1,2 +1,27 @@
 ---
 # tasks file for users
+
+- name: Create group
+  ansible.builtin.group:
+    name: "{{ item.name }}"
+    state: present
+  become: True
+  loop: "{{ users }}"
+
+- name: Create user
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+    comment: "{{ item.comment | default('') }}"
+    group: "{{ item.name }}"
+    groups: "{{ item.groups | default('') }}"
+    password: "{{ passwords[item.name] | password_hash('sha512') }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    update_password: >-
+      {%- if item.manage_password is True | default('False') -%}
+      always
+      {%- else -%}
+      on_create
+      {%- endif -%}
+  become: True
+  loop: "{{ users }}"
