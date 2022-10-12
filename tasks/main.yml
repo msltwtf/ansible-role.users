@@ -18,7 +18,7 @@
     password: "{{ passwords[item.name] | password_hash('sha512') }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
     update_password: >-
-      {%- if item.manage_password is True | default('False') -%}
+      {%- if item.manage_password is true | default('False') -%}
       always
       {%- else -%}
       on_create
