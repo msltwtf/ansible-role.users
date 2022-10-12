@@ -1,4 +1,4 @@
-# Ansible Role: java
+# Ansible Role: Users
 
 [![CI](https://github.com/msltwtf/ansible-role.users/actions/workflows/ci.yml/badge.svg)](https://github.com/msltwtf/ansible-role.users/actions/workflows/ci.yml)
 
